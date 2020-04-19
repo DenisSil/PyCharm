@@ -1,0 +1,25 @@
+text = 'Большинство смертных жалуется на коварство природы: рождаемся мы так ненадолго, и отведённое нам время пролетает так скоро, что, за исключением разве что немногих, мы уходим из жизни, ещё не успев к ней как следует подготовиться.'
+sign = ['.',',','!','?','...',':',';','-']
+word = {}
+l = len(text)
+for i in range(0,l):
+  if text[i] in sign:
+    text = text[:i]+ ' ' + text[(i + 1):]
+else:
+  text = text.lower()
+  print(text)
+  text = text.split()
+  text.sort()
+  l = len(text)
+  dict_word = {}
+  for i in range(l):
+    word = text[i]
+    dict_word[word] = 1
+    text[i] = ''
+    for n in range(l):
+      if text[n] == word:
+        dict_word[word] = int(dict_word[word]) + 1
+        text[n] = ''
+  else:
+    dict_word = {i:dict_word[i] for i in dict_word if i!=''}
+    print(dict_word)
