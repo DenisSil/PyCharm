@@ -1,5 +1,6 @@
 import random
 import copy # Использовал глубокую копию
+
 # Первая функция
 
 def F(name_list,n):
