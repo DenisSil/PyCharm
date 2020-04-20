@@ -1,0 +1,66 @@
+import random
+import copy # Использовал глубокую копию
+# Первая функция
+
+def F(name_list,n):
+  list_name = []
+  for i in range(n):  
+    list_name.append(random.choice(name_list))
+  else:
+    return list_name
+
+# Вторая функция
+
+def freq(list_name):
+  l_n = copy.deepcopy(list_name)
+  l = len(l_n)
+  frequency = {}
+  for i in range(l):
+    word = l_n[i]
+    frequency[word] = 1
+    l_n[i] = ''
+    for n in range(l):
+      if l_n[n] == word:
+        frequency[word] = int(frequency[word]) + 1
+        l_n[n] = ''
+  else: 
+    n = []
+    frequency = {i:frequency[i] for i in frequency if i!=''}
+    name = list(frequency.keys())
+    values_name = list(frequency.values())
+    name_max = int(max(values_name))
+    for i in range(len(name)):
+      if int(values_name[i]) == name_max:
+        n.append({name[i]:name_max})
+    else:
+      return n
+      
+# Третья функция
+
+def let(list_name):
+  l_n = copy.deepcopy(list_name)
+  letter_names = []
+  frequency = {}
+  for i in range(len(l_n)):
+    name = str(l_n[i])
+    letter_names.append(name[0])
+  else:
+    for i in range(len(letter_names)):
+      word = letter_names[i]
+      frequency[word] = 1
+      letter_names[i] = ''
+      for n in range(len(letter_names)):
+        if letter_names[n] == word:
+          frequency[word] = int(frequency[word]) + 1
+          letter_names[n] = ''
+    else:
+      n = []
+      frequency = {i:frequency[i] for i in frequency if i!=''}
+      name = list(frequency.keys())
+      values_name = list(frequency.values())
+      name_min = int(min(values_name))
+      for i in range(len(name)):
+        if int(values_name[i]) == name_min:
+          n.append({name[i]:name_min})
+      else:
+        return n
