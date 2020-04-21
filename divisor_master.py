@@ -42,7 +42,7 @@ def prime_dividers(text):
       number_list = [l for l in number_list if l != not_prime_numbers]
       dividers[i] = number_list
       for n in range(len(number_list)):
-        number = int(numbers[n])
+        number = int(number_list[n])
         m = 0
         for s in range(1,number + 1):
           x = number % s
