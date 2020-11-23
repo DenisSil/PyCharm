@@ -1,0 +1,121 @@
+def reshenie(x1,x2,sign): # Высчитывает 
+  x1 = int(x1)
+  x2 = int(x2)
+  if sign =='+':
+    total = int(x1) + int(x2)
+    return total
+  elif sign =='-':
+    total = int(x1) - int(x2)
+    return total
+  elif sign =='*':
+    total = int(x1) * int(x2)
+    return total
+  elif sign == '^':
+    total = int(x1) ** int(x2)
+    return total
+  else:
+    total = int(x1) / int(x2) 
+    return total
+        
+        
+def ns(str): # Находит знаки
+  sign = []
+  s = ['+','-','/','*','^']
+  l = len(str)
+  for i in range(0,l):
+    x = str[i]
+    if x in s:
+      sign.append(i)
+    else:
+      continue
+  else:
+    return sign
+    
+
+def nq(str): # Функция которая проверяет наличие скобочек
+  quotes = []
+  duo = []
+  opening_quotes = []
+  closing_quotes = []
+  q = ['(',')']
+  l = len(str)
+  for i in range(l):
+    x = str[i]
+    if x in q:
+      quotes.append(i)   
+  else: 
+    if quotes != []:
+      for i in range(len(quotes)):
+        if quotes[i] != quotes[-1]:
+          x = quotes[i+1] - quotes[i]
+          if x <= 3:
+            continue
+          else:
+            duo.append([quotes[i] + 1,quotes[i+1]])
+        for i in range(len(duo)):
+          if stroka[duo[i][0]] == '(' and stroka[duo[i][1]] == '(':
+            duo[i] = ''
+          for i in range(len(duo)):
+            if stroka[duo[i][0]] == ')' and stroka[duo[i][1]] == ')':
+              duo[i] = ''
+            for i in range(len(duo)):  
+              if stroka[duo[i][0]] == ')' and stroka[duo[i][1]] == '(':
+                duo[i] = ''
+            duo = [i for i in duo if i != '']
+            return duo
+    else:
+      quotes = []
+      return quotes
+      
+      
+def func_reshenie(operation): # Функция которая решает пример
+  priority_list = []
+  priority_sign = ['*','/','^']
+  list_sign = ns(operation)
+  if list_sign != []:
+    while list_sign != []:
+      list_sign = ns(operation)
+      if len(list_sign) == 1:
+        sign = list_sign[0]
+        del list_sign[0]
+        answer = reshenie(operation[:sign],operation[int(sign) + 1:],operation[sign])
+      else:
+        sign = list_sign[0]
+        del list_sign[0]
+        answer = reshenie(operation[:sign],operation[int(sign)+1:list_sign[0]],operation[sign])
+        operation = str(answer) + str(operation[list_sign[0]:])
+    else:
+      return answer
+  else:
+    list_sign = ns(operation)
+    while list_sign != []:
+      list_sign = ns(operation)
+      if len(list_sign) == 1:
+        sign = list_sign[0]
+        del list_sign[0]
+        answer = reshenie(operation[:sign],operation[int(sign) + 1:],operation[sign])
+      else:
+        sign = list_sign[0]
+        del list_sign[0]
+        answer = reshenie(operation[:sign],operation[int(sign)+1:list_sign[0]],operation[sign])
+        operation = str(answer) + str(operation[list_sign[0]:])
+    else:
+      return answer
+      
+      
+stroka = input('Введите пример:') # Сам калькулятор
+quotes = nq(stroka)
+if quotes != []:
+  while nq(stroka) != []: 
+    for i in range(len(quotes)):
+      quotes = nq(stroka)
+      operation = stroka[quotes[i][0]:quotes[i][1]]
+      answer = func_reshenie(operation)
+      stroka = stroka[:quotes[i][0]-1] + str(answer) + stroka[quotes[i][1]+1:]
+      del quotes[0]
+    else:
+      quotes = nq(stroka)
+  else:
+    print(func_reshenie(stroka))
+else:
+  print(func_reshenie(stroka))
